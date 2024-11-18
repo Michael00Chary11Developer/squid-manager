@@ -1,0 +1,19 @@
+#ignore db
+db.sqlite3
+
+#ignore migrations file
+*/migrations/
+
+# Ignore Python bytecode files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+
+#ignore migrations file
+*/migrations/
+
+
+#venv
+.venv

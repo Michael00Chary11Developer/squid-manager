@@ -1,0 +1,40 @@
+########################################################################################################################
+way1:
+sudo apt update
+sudo apt install squid
+sudo apt install -y software-properties-common apt-transport-https wget
+wget -qO - http://www.webmin.com/jcameron-key.asc | sudo tee /etc/apt/trusted.gpg.d/webmin.asc
+sudo add-apt-repository "deb https://download.webmin.com/download/repository sarge contrib"
+sudo apt update
+sudo apt install webmin
+https://192.168.2.24:10000
+sudo ufw allow 10000/tcp
+
+########################################################################################################################
+way2:
+sudo apt update
+sudo apt install squid
+sudo nano /etc/apt/sources.list
+deb http://download.webmin.com/download/repository sarge contrib
+wget -qO - http://www.webmin.com/jcameron-key.asc | sudo apt-key add -
+sudo apt update
+sudo apt install webmin
+https://192.168.2.24:10000
+
+########################################################################################################################
+way3
+sudo apt update
+sudo apt install squid
+sudo nano /etc/squid/squid.conf
+acl localnet src 192.168.1.0/24  # شبکه داخلی شما
+http_access allow localnet
+sudo systemctl restart squid
+sudo systemctl status squid
+wget https://www.webmin.com/jcameron.key
+sudo apt-key add jcameron.key
+echo "deb http://download.webmin.com/download/repository sarge contrib" | sudo tee /etc/apt/sources.list.d/webmin.list
+sudo apt update
+sudo apt install webmin
+https://192.168.2.24:10000/
+sudo ufw allow 10000/tcp
+sudo ufw reload
