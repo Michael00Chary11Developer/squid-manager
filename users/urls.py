@@ -1,7 +1,7 @@
 from django.urls import path
-from .views import BlockSiteForUser, UserAccessDetail
+from .views import BlockedSiteList, UnblockSite
 
 urlpatterns = [
-    path('user/<uuid:user_id>/block_sites/', BlockSiteForUser.as_view(), name='block-sites-for-user'),
-    path('user/<uuid:user_id>/access/', UserAccessDetail.as_view(), name='user-access-detail'),
+    path('blocked_sites/', BlockedSiteList.as_view(), name='blocked-site-list'),
+    path('unblock_site/<int:site_id>/', UnblockSite.as_view(), name='unblock-site'),
 ]

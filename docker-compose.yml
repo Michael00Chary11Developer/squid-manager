@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  squid:
+    image: michael/squid:latest
+    container_name: squid_proxy
+    ports:
+      - "3128:3128"
+    volumes:
+      - ./squid.conf:/etc/squid/squid.conf
+      - ./cache:/var/spool/squid
+    restart: always
+
+  django:
+    build: .
+    container_name: squid_manager
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    depends_on:
+      - squid
+    environment:
+      - DJANGO_SETTINGS_MODULE=squid_manager.settings
+    restart: always
